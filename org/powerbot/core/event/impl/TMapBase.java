@@ -1,0 +1,69 @@
+
+package org.powerbot.core.event.impl;
+
+import org.powerbot.gb;
+import org.powerbot.game.api.wrappers.Tile;
+import org.powerbot.game.api.methods.Game;
+import org.powerbot.s;
+import java.awt.Graphics;
+import org.powerbot.core.event.listeners.TextPaintListener;
+
+public class TMapBase implements TextPaintListener
+{
+    private static final String z;
+    
+    @Override
+    public int draw(int n, final Graphics graphics) {
+        gb.a(graphics, n++, s.a(TMapBase.z) + new Tile(Game.getBaseX(), Game.getBaseY(), -1).toString());
+        return n;
+    }
+    
+    static {
+        final char[] charArray = "/Q\u001c$@b\"h_c".toCharArray();
+        int length;
+        int n2;
+        final int n = n2 = (length = charArray.length);
+        int n3 = 0;
+        while (true) {
+            Label_0102: {
+                if (n > 1) {
+                    break Label_0102;
+                }
+                length = (n2 = n3);
+                do {
+                    final char c = charArray[n2];
+                    char c2 = '\0';
+                    switch (n3 % 5) {
+                        case 0: {
+                            c2 = 'm';
+                            break;
+                        }
+                        case 1: {
+                            c2 = '^';
+                            break;
+                        }
+                        case 2: {
+                            c2 = 'c';
+                            break;
+                        }
+                        case 3: {
+                            c2 = 'j';
+                            break;
+                        }
+                        default: {
+                            c2 = '-';
+                            break;
+                        }
+                    }
+                    charArray[length] = (char)(c ^ c2);
+                    ++n3;
+                } while (n == 0);
+            }
+            if (n <= n3) {
+                z = new String(charArray).intern();
+                return;
+            }
+            continue;
+        }
+    }
+}
